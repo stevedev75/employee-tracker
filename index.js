@@ -228,29 +228,54 @@ const viewData = () => {
   
 // Build the above 3 mentioned functions below
 // viewDept X
-// viewRole
-// viewEmp
+// viewRole X
+// viewEmp X
 // Remember to use 'console.table' for output!
 
 // Beginning of viewDept function
-
 function viewDept() {
-  var query = "SELECT * FROM department";
-    connection.query(query, function(err, res) {
-        console.log(`DEPARTMENTS:`)
-      res.forEach(department => {
-          // console.log(`ID: ${department.id} | Name: ${department.name}`)
-           // console.table(????) // How do I "print out the updated table?"
+ var query = "SELECT * FROM department";
+  connection.query(query, function(err, res) {
+   console.log(`Departments:`)
+    res.forEach(department => {
+     console.log(`ID: ${department.id} | Name: ${department.name}`)
+      // console.table(????) // How do I "print out the updated table?"
       })
       runSearch();
       });
-  };
-
+    };
 // End of viewDept function
 
 
+// Beginning of viewRole function
+function viewRole() {
+ var query = "SELECT * FROM role";
+  connection.query(query, function(err, res) {
+   console.log(`Roles:`)
+    res.forEach(role => {
+     console.log(`ID: ${role.id} | Title: ${role.title} | Salary: ${role.salary} | Department ID: ${role.department_id}`);
+      // console.table(????) // How do I "print out the updated table?"
+      })
+      runSearch();
+      });
+   };
+// End of viewRole function
 
-
-
+// Beginning of viewEmp function
+function viewEmp() {
+ var query = "SELECT * FROM employee";
+  connection.query(query, function(err, res) {
+   console.log(`Employee:`)
+    res.forEach(employee => {
+     console.log(`ID: ${employee.id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.role_id} | Manager ID: ${employee.manager_id}`);
+     // console.table(????) // How do I "print out the updated table?"
+      })
+      runSearch();
+      });
+   };
+// End of viewEmp function
 
 // Build the updateData function below
+
+// Beginning of updateData function
+
