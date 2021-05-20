@@ -1,11 +1,11 @@
-﻿first_name,last_name,title,department,salary
-James,Smith,Lead Engineer,Engineering,150000
-Mike,Jones,Software Engineer,Engineering,100000
-Sara,Anderson,Front End Developer,Engineering,85000
-Steve,White,Sales Lead,Sales,120000
-Sean,Black,Sales Manager,Sales,180000
-Pat,Brown,Salesperson,Sales,90000
-Adrienne,McDonald,Accountant,Accounting,90000
-Annie,O'Hara,Accounting Manager,Accounting,130000
-Chris,Washington,Attorney,Legal,150000
-Rich,Michaelson,Managing Attorney,Legal,250000
+﻿first_name,last_name,title,role_id,department,department_id,salary,manager_id
+James,Smith,job1,1,dept1,1,100000,0
+Mike,Jones,Job2,2,dept2,1,110000,0
+Sara,Anderson,Job3,3,dept3,1,120000,0
+Steve,White,Job4,4,dept4,2,130000,0
+Sean,Black,Job5,5,dept5,2,140000,0
+Pat,Brown,job6,6,dept6,2,150000,0
+Adrienne,McDonald,job7,7,dept7,3,160000,0
+Annie,O'Hara,job8,8,dept8,3,170000,0
+Chris,Washington,job9,9,dept9,4,180000,0
+Rich,Michaelson,job10,10,dept10,4,190000,0
