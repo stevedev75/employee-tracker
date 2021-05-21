@@ -2,7 +2,7 @@
 
 const mysql = require('mysql');
 const inquirer = require('inquirer');
-const cTable = require('console.table');
+//const cTable = require('console.table');
 
 const connection = mysql.createConnection({
  host: 'localhost',
@@ -29,7 +29,8 @@ const runSearch = () => {
        choices: [
         'Add departments, roles, or employees',
         'View departments, roles, or employees',
-        'Update employee roles',  
+        'Update employee roles',
+        'Exit',   
        ], 
    })  
    .then((answer) => {
@@ -45,6 +46,11 @@ const runSearch = () => {
      case 'Update employee roles':
       updateData();
        break;
+
+    case 'Exit':
+     console.log("Bye Bye!");
+     connection.end();
+      break;
        
      default:
       console.log('Invalid action: ${answer.action}');
@@ -85,16 +91,6 @@ const addData = () => {
   });
 };
 
-
-// USE THE CONSOLE.TABLE before we move ahead??
-// If so, when do I do the JOINs?? -- it must be before this step, right?
-
-// Build the above 3 mentioned functions below
-// addDept X
-// addRole X
-// addEmp X
-// Remember to use 'console.table' for output!
-
 // The addDept function
 const addDept = () => {
   inquirer
@@ -105,10 +101,10 @@ const addDept = () => {
    })
    .then(function(res) {
      const department = res.department;
-     const query = `INSERT INTO department (name) VALUES("${department}")`;
+     const query = `INSERT INTO department (name) VALUE ("${department}")`; // JOIN stuff goes in here(?) or at least these typs of queries //
       connection.query(query, function(err, res) {
        if (err) throw err;
-     //   console.table(????) // How do I "print out the updated table?"
+       console.log("Department added!"); 
       runSearch();
     });
   });
@@ -144,7 +140,7 @@ const addRole = () => {
       const query = `INSERT INTO role (title, salary, department_id) VALUE("${title}", "${salary}", "${department_id}")`;
       connection.query(query, function(err, res) {
         if (err) throw err;
-        // console.table(????) // How do I "print out the updated table?"
+        console.log("Role added!");
       runSearch();
     });
   })
@@ -187,12 +183,14 @@ const addEmp = () => {
       const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE("${first_name}", "${last_name}", "${role_id}", "${manager_id}")`;
       connection.query(query, function(err, res) {
         if (err) throw err;
-      // console.table(????) // How do I "print out the updated table?"
+        console.log("Employee added!");
       runSearch();
     });
   });
 }
-// End of addDept function 
+// End of addDept function
+
+//Beginning of viewData function
 
 const viewData = () => {
     inquirer
@@ -225,12 +223,8 @@ const viewData = () => {
        }  
      });
    };
-  
-// Build the above 3 mentioned functions below
-// viewDept X
-// viewRole X
-// viewEmp X
-// Remember to use 'console.table' for output!
+// End of ViewData function
+
 
 // Beginning of viewDept function
 function viewDept() {
@@ -238,12 +232,12 @@ function viewDept() {
   connection.query(query, function(err, res) {
    console.log(`Departments:`)
     res.forEach(department => {
-     console.log(`ID: ${department.id} | Name: ${department.name}`)
-      // console.table(????) // How do I "print out the updated table?"
+     console.table(res);
       })
       runSearch();
       });
     };
+
 // End of viewDept function
 
 
@@ -253,8 +247,7 @@ function viewRole() {
   connection.query(query, function(err, res) {
    console.log(`Roles:`)
     res.forEach(role => {
-     console.log(`ID: ${role.id} | Title: ${role.title} | Salary: ${role.salary} | Department ID: ${role.department_id}`);
-      // console.table(????) // How do I "print out the updated table?"
+     console.table(res);
       })
       runSearch();
       });
@@ -267,15 +260,18 @@ function viewEmp() {
   connection.query(query, function(err, res) {
    console.log(`Employee:`)
     res.forEach(employee => {
-     console.log(`ID: ${employee.id} | Name: ${employee.first_name} ${employee.last_name} | Role ID: ${employee.role_id} | Manager ID: ${employee.manager_id}`);
-     // console.table(????) // How do I "print out the updated table?"
+     console.table(res);
       })
       runSearch();
       });
    };
 // End of viewEmp function
 
-// Build the updateData function below
-
 // Beginning of updateData function
 
+//First, get the employee from the employee table
+
+// Next, ask user for a role 
+          
+
+// How do I do the JOINS??
