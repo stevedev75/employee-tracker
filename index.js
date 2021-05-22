@@ -238,15 +238,12 @@ function viewDept() {
 
 // End of viewDept function
 
-
 // Beginning of viewRole function
 function viewRole() {
- var query = "SELECT * FROM role INNER JOIN department ON role.department_id = department.id";
+ var query = "SELECT * FROM role LEFT OUTER JOIN department ON role.department_id = department.id";
   connection.query(query, function(err, res) {
    console.log(`Roles:`)
-    res.forEach(role => {
      console.table(res);
-      })
       runSearch();
       });
    };
@@ -254,16 +251,17 @@ function viewRole() {
 
 // Beginning of viewEmp function
 function viewEmp() {
- var query = "SELECT * FROM employee INNER JOIN role ON role_id = role.id INNER JOIN department ON role.department_id = department.id"; 
+ var query = "SELECT * FROM employee LEFT OUTER JOIN role ON role_id = role.id LEFT OUTER JOIN department ON role.department_id = department.id"; 
   connection.query(query, function(err, res) {
    console.log(`Employee:`)
-    res.forEach(employee => {
      console.table(res);
-      })
       runSearch();
       });
    };
 // End of viewEmp function
+
+
+// **** SHOW ANTHONY THIS CODE **** 
 
 // Beginning of updateData function
 function updateData() {
@@ -285,8 +283,11 @@ function updateData() {
      .then(function(res) {
       const id = res.id;
       const roleid = res.role_id;
-      const query = `SET role_id = roleid WHERE employee_id = id`;
-    //  const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE("${first_name}", "${last_name}", "${role_id}", "${manager_id}")`;
+      // NEW LINE OF CODE TO  FIX WITH ANTHNOY BELOW
+
+     //const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE("${first_name}", "${last_name}", "${role_id}", "${manager_id}")`;
+
+     const query = `UPDATE employee SET role_id = ${roleid} WHERE id = ${id}`;
       connection.query(query, function(err, res) {
         if (err) throw err;
         console.log("Employee Role Updated!");
