@@ -231,9 +231,7 @@ function viewDept() {
  var query = "SELECT * FROM department";
   connection.query(query, function(err, res) {
    console.log(`Departments:`)
-    res.forEach(department => {
      console.table(res);
-      })
       runSearch();
       });
     };
@@ -243,7 +241,7 @@ function viewDept() {
 
 // Beginning of viewRole function
 function viewRole() {
- var query = "SELECT * FROM role";
+ var query = "SELECT * FROM role INNER JOIN department ON role.department_id = department.id";
   connection.query(query, function(err, res) {
    console.log(`Roles:`)
     res.forEach(role => {
@@ -256,7 +254,7 @@ function viewRole() {
 
 // Beginning of viewEmp function
 function viewEmp() {
- var query = "SELECT * FROM employee";
+ var query = "SELECT * FROM employee INNER JOIN role ON role_id = role.id INNER JOIN department ON role.department_id = department.id"; 
   connection.query(query, function(err, res) {
    console.log(`Employee:`)
     res.forEach(employee => {
@@ -268,10 +266,34 @@ function viewEmp() {
 // End of viewEmp function
 
 // Beginning of updateData function
+function updateData() {
+  inquirer
+   .prompt([
+     {
+     name: 'id',
+      type: 'input',
+       message: 'Which employee ID do you want to update?',   
+     },
 
-//First, get the employee from the employee table
+     {
+     name: 'role_id',
+      type: 'input',
+       message: 'Which role ID do you want to update?',   
+     },
 
-// Next, ask user for a role 
-          
+    ])
+     .then(function(res) {
+      const id = res.id;
+      const roleid = res.role_id;
+      const query = `SET role_id = roleid WHERE employee_id = id`;
+    //  const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE("${first_name}", "${last_name}", "${role_id}", "${manager_id}")`;
+      connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.log("Employee Role Updated!");
+      runSearch();
+    });
+  })
+};
+  
 
-// How do I do the JOINS??
+//End of the updateData function
